@@ -42,12 +42,14 @@
   "scripts": {
     "declaration": "tsc -p declaration.jsconfig.json && cp dist/main.d.ts dist/main.d.mts",
     "build": "npm run declaration && rollup -c",
-    "prepare": "npm run build",
     "lint": "eslint --ext .js,.cjs,.mjs --ignore-pattern rollup.config.mjs .",
     "format": "eslint --ext .js,.cjs,.mjs --ignore-pattern rollup.config.mjs --fix .",
     "test": "node test/test.js",
     "test-node": "node test/node-es.mjs && node test/node-commonjs.js",
-    "integration": "node test/integration.js"
+    "integration": "node test/integration.js",
+    "preversion": "npm run lint",
+    "postversion": "git push --follow-tags && npm publish",
+    "prepublishOnly": "npm run build"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.25.9",
